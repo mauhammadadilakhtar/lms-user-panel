@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       /* =========================================
+   🌟 LOGIN / SIGNUP LINK FIX (UPPER ADJUSTMENT) 🌟
+   ========================================= */
+
+.login-card {
+    background: rgba(26, 32, 53, 0.85); /* Agar card use kar rahe hain */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-card h2 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Body Center Layout */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0e17;
+    background-image: linear-gradient(rgba(10, 14, 23, 0.85), rgba(10, 14, 23, 0.85)), 
+                      url('https://res.cloudinary.com/saylani-welfare/image/upload/v1788676204/SMIT/Campuses/ibn-e-adam-it-park.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Inputs Styling */
+input[type="email"], 
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+input[type="email"]:focus, 
+input[type="password"]:focus,
+input[type="text"]:focus {
+    border-color: #0d6c92;
+    box-shadow: 0 0 8px rgba(5, 109, 141, 0.3);
+}
+
+/* Login Button Styling */
+button, #login {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 12px; /* Link aur button ke darmiyan gap kam karne ke liye */
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    background: #0a4b81;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 10px rgba(18, 145, 138, 0.3);
+}
+
+button:hover, #login:hover {
+    background: #0f7d99;
+}
+
+button:active, #login:active {
+    transform: scale(0.98);
+}
+
+/* --- 👇 LINK (LOGOUT / SIGNUP) KO UPAR LANE WALA CODE 👇 --- */
+a {
+    display: block;
+    margin-top: 5px; /* Button ke bilkul qareeb laane ke liye */
+    color: #8b9bb4;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #00f2fe;
+}
+       
+       
+       
+       .login-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.login-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+/* Poore page ko center karne ke liye background aur layout */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #41a8d8, #082c49); /* Burger/Food theme ke mutabiq warm gradient */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login form container (agar aapne HTML mein div nahi lagaya toh inputs khud ek box mein aa jayenge) */
+body {
+    background-color: #e7f0ed;
+    background-image: url('https://res.cloudinary.com/saylani-welfare/image/upload/v1788676204/SMIT/Campuses/ibn-e-adam-it-park.jpg'); /* Food/Burger theme ke liye */
+}
+
+/* Inputs aur Button ko style karne ke liye wrapper ya direct elements */
+input[type="email"], 
+input[type="password"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    display: block;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+/* Jab input par click ho toh border ka rang change ho */
+input[type="email"]:focus, 
+input[type="password"]:focus {
+    border-color: #0d6c92;
+    box-shadow: 0 0 8px rgba(5, 109, 141, 0.2);
+}
+
+/* Login Button Styling */
+button {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #0a4b81; /* Vibrant orange color */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 10px rgba(18, 145, 138, 0.3);
+}
+
+/* Button hover effect */
+button:hover {
+    background: #0f7d99;
+}
+
+/* Button click effect */
+button:active {
+    transform: scale(0.98);
+}
+    </style>
+</head>
+<body>
+
+   <div class="login-card">
+    <h2>Admin Login</h2>
+    <input type="email" placeholder="Enter Email Address" id="email" value="burger-admin@admin.com">
+    <input type="password" placeholder="Enter Password" id="password" value="admin1234">
+    <button onclick="login()">Login</button>
+</div>
+    
+
+
+
+
+     <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyDw4y1NWPvI2SY1pxgPwv7VpAd9wp8JUlk",
+  authDomain: "quiz-app-dd5f9.firebaseapp.com",
+  databaseURL: "https://quiz-app-dd5f9-default-rtdb.firebaseio.com",
+  projectId: "quiz-app-dd5f9",
+  storageBucket: "quiz-app-dd5f9.firebasestorage.app",
+  messagingSenderId: "573422885978",
+  appId: "1:573422885978:web:adf703de123a0aaf3f4c63"
+};
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+
+    <script src="admin.js"></script>
+</body>
+</html>

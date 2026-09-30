@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Student ID Card</title>
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- For pdf cREATE AND dOWNLOAD -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+    /* =========================================
+   🌟 STUDENT ID CARD PREVIEW THEME CSS 🌟
+   ========================================= */
+
+:root {
+    --bg-color: #0a0e17; 
+    --sidebar-bg: #111625;
+    --card-bg: #1a2035; 
+    --text-main: #ffffff;
+    --text-muted: #8b9bb4;
+    --accent: #00f2fe;   
+    --accent2: #4facfe;  
+    --gradient: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+    --success: #00e676;
+    --shadow-card: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+/* --- Page Container --- */
+.page {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(circle at top right, #1a2238 0%, var(--bg-color) 60%);
+    min-height: 100vh;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* --- ID Card Design --- */
+.card {
+    width: 100%;
+    max-width: 500px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0, 242, 254, 0.2);
+}
+
+/* --- Card Header --- */
+.card-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header .logo {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient);
+    color: #000;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 16px;
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+}
+
+.header-text h2 {
+    font-size: 18px;
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.header-text p {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- Card Content --- */
+.card-content {
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.student-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.student-image {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+}
+
+.student-details h2 {
+    font-size: 16px;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.role {
+    font-size: 11px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.detail {
+    margin-bottom: 6px;
+}
+
+.detail label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail span {
+    font-size: 13px;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+/* --- QR Section --- */
+.qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#qrcode {
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.qr-section p {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.verified {
+    background: rgba(0, 230, 118, 0.15);
+    color: var(--success);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 230, 118, 0.3);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+}
+
+/* --- Card Footer --- */
+.card-footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-footer span, 
+.card-number {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* --- Page Action Buttons --- */
+.page button {
+    background: var(--gradient);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 6px;
+}
+
+.page button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+}
+
+.page button a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* --- Responsive Layout for ID Card --- */
+@media (max-width: 576px) {
+    .page {
+        padding: 20px;
+    }
+    .card-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .qr-section {
+        width: 100%;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 15px;
+    }
+    .page button {
+        width: 100%;
+        margin: 6px 0;
+    }
+}
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <h2 class="page-title">Student ID Card Preview</h2>
+
+      <div class="card" id="card">
+        <!-- HEADER -->
+
+        <div class="card-header">
+          <div class="logo">SMIT</div>
+
+          <div class="header-text">
+            <h2>SMIT Hyderabad</h2>
+            <p>STUDENT IDENTITY CARD</p>
+          </div>
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="card-content">
+          <!-- LEFT SIDE -->
+
+          <div class="student-section">
+            <img
+              id="stdImage"
+              class="student-image"
+              src="https://res.cloudinary.com/oxd4g5j7/image/upload/v1786879008/kpxz6dzggtj8pfywkwhz.png"
+              alt="Student"
+            />
+
+            <div class="student-details">
+              <h2 id="studentName"></h2>
+
+              <div class="role">MERN STACK STUDENT</div>
+
+              <div class="detail">
+                <label>Email</label>
+                <span id="studentEmail"> student@gmail.com </span>
+              </div>
+
+              <div class="detail">
+                <label>Course</label>
+                <span id="studentCourse"> </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE -->
+
+          <div class="qr-section">
+            <div id="qrcode"></div>
+
+            <p>
+              Scan to verify<br />
+              student identity
+            </p>
+
+            <div class="verified">✓ VERIFIED</div>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="card-footer">
+          <div>Property of <span>SMIT Hyderabad</span></div>
+
+          <div class="card-number" id="footerStudentId">SMIT-10245</div>
+        </div>
+      </div>
+
+      <button onclick="pdfDownload()">Download pdf</button>
+      <button><a href="./QuizView.html">View All Courses</a></button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-database-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+  apiKey: "AIzaSyDw4y1NWPvI2SY1pxgPwv7VpAd9wp8JUlk",
+  authDomain: "quiz-app-dd5f9.firebaseapp.com",
+  databaseURL: "https://quiz-app-dd5f9-default-rtdb.firebaseio.com",
+  projectId: "quiz-app-dd5f9",
+  storageBucket: "quiz-app-dd5f9.firebasestorage.app",
+  messagingSenderId: "573422885978",
+  appId: "1:573422885978:web:adf703de123a0aaf3f4c63"
+};
+
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

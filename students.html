@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <style>
+        /* =========================================
+   🌟 STUDENTS PAGE & LOADING SPINNER CSS 🌟
+   ========================================= */
+
+:root {
+    --bg-color: #0a0e17; 
+    --sidebar-bg: #111625;
+    --card-bg: #1a2035; 
+    --text-main: #ffffff;
+    --text-muted: #8b9bb4;
+    --accent: #00f2fe;   
+    --accent2: #4facfe;  
+    --gradient: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+    --success: #00e676;
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 270px;
+    background: var(--sidebar-bg);
+    padding: 30px 20px;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 50px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 15px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 14px 20px;
+    border-radius: 12px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu a:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.2);
+    transform: translateX(5px);
+}
+
+.menu .active {
+    background: var(--gradient);
+    color: #000 !important; 
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+/* --- Main Content --- */
+.main {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    padding: 40px;
+    background: radial-gradient(circle at top right, #1a2238 0%, var(--bg-color) 60%);
+}
+
+/* --- Topbar --- */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 20px 30px;
+    background: rgba(26, 32, 53, 0.6);
+    backdrop-filter: blur(10px); 
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-card);
+}
+
+.topbar h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.admin {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 25px;
+    border-radius: 50px; 
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+.admin::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--success);
+}
+
+/* --- Loading Spinner Styling --- */
+#loading {
+    padding: 50px 0;
+}
+
+#loading img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* Loading icon ko dark theme ke mutabiq adjust kiya hai */
+    opacity: 0.8;
+}
+
+/* Hide Utility Class (JS ke liye) */
+.hide {
+    display: none !important;
+}
+
+/* --- Table Section --- */
+.table-box {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px; 
+    margin-top: -15px;
+}
+
+th {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+}
+.loading-spinner {
+    width: 60px !important;
+    height: 60px !important;
+    filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    opacity: 0.8;
+}
+td {
+    padding: 20px;
+    
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-main);
+}
+/* Table ke andar wali images ke liye size control */
+td img {
+    width: 40px !important;     /* Apni marzi se size kam ya zyada kar sakte hain (jaise 30px ya 40px) */
+    height: 40px !important;
+    object-fit: cover;          /* Image ko stretch hone se bachata hai */
+    border-radius: 50%;         /* Agar image ko gol (circular) karna ho */
+}
+
+td:first-child {
+    border-left: 1px solid rgba(255,255,255,0.03);
+    border-radius: 10px 0 0 10px;
+}
+
+td:last-child {
+    border-right: 1px solid rgba(255,255,255,0.03);
+    border-radius: 0 10px 10px 0;
+}
+
+tr {
+    transition: var(--transition);
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.01);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 80px;
+        padding: 30px 10px;
+    }
+    .logo {
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+    .menu a span {
+        display: none; 
+    }
+    .menu a {
+        justify-content: center;
+        padding: 15px;
+    }
+    .main {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .table-box {
+        overflow-x: auto;
+    }
+    table {
+        min-width: 600px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                Admin Panel
+            </div>
+
+            <ul class="menu">
+    <li><a href="./dashboard.html">🏠 Dashboard</a></li>
+    <li><a href="./students.html">👨‍🎓 Students</a></li>
+    <li><a href="./teacher.html">👨‍🏫 Teachers</a></li>
+    <li><a href="./courses.html">📚 Courses</a></li>
+    <li><a href="./quiz.html" >💳 Quizs</a></li>
+    <li><a href="./report.html">📊 Reports</a></li>
+    <li><a href="./Questions.html" class="active">🚪 Questions</a></li>
+    <li><a href="./settings.html">⚙️ Settings</a></li>
+    <li><a href="./login.html">🚪 Logout</a></li>
+    
+</ul>
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <!-- Top Bar -->
+            <div class="topbar">
+
+                <div>
+                    <h1>Students List</h1>
+                    
+                </div>
+
+                <div class="admin">
+                    👤 Admin
+                </div>
+
+            </div>
+
+
+            <!-- Dashboard Cards -->
+
+            <div id="loading" style="text-align: center;">
+                <img 
+               style="width: 60px;height: 60px;" 
+            src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="">
+            </div>
+           
+
+            <!-- Recent Students -->
+            <section class="table-box hide" id="maintable" >
+               
+
+                <table >
+
+                    <thead>
+                        <tr>
+                            <th>S.no</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="users">
+
+                       
+
+                      
+                    </tbody>
+
+                </table>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    
+
+       <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyDw4y1NWPvI2SY1pxgPwv7VpAd9wp8JUlk",
+  authDomain: "quiz-app-dd5f9.firebaseapp.com",
+  databaseURL: "https://quiz-app-dd5f9-default-rtdb.firebaseio.com",
+  projectId: "quiz-app-dd5f9",
+  storageBucket: "quiz-app-dd5f9.firebasestorage.app",
+  messagingSenderId: "573422885978",
+  appId: "1:573422885978:web:adf703de123a0aaf3f4c63"
+};
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+<script src="students.js"></script>
+
+</body>
+
+</html>
+

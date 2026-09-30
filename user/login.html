@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* =========================================
+   🌟 LOGIN PAGE STYLING (COMPUTER SKILLS BG) 🌟
+   ========================================= */
+
+:root {
+    --bg-color: #0a0e17; 
+    --card-bg: rgba(26, 32, 53, 0.85); /* Thora transparent taaki background image halki nazar aaye */
+    --text-main: #ffffff;
+    --text-muted: #8b9bb4;
+    --accent: #00f2fe;   
+    --accent2: #4facfe;  
+    --gradient: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+    --shadow-card: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Body with Background Image & Dark Overlay --- */
+body {
+    background-image: linear-gradient(rgba(10, 14, 23, 0.85), rgba(10, 14, 23, 0.85)), 
+                      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920&auto=format&fit=crop'); /* Computer skills / coding background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* --- Login Form Container --- */
+.login-container, body { /* Agar aapne form ko kisi div mein wrap nahi kiya toh body ke andar direct elements par ye apply hoga */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Form inputs aur elements ki styling */
+input[type="email"],
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-main) !important;
+    border-radius: 12px !important;
+    padding: 15px 20px !important;
+    margin-bottom: 20px;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3) !important;
+    outline: none;
+}
+
+/* --- Login Button --- */
+#login {
+    width: 100%;
+    max-width: 400px;
+    background: var(--gradient) !important;
+    border: none !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+#login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(79, 172, 254, 0.6);
+}
+
+/* --- Don't have an account link --- */
+a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: var(--transition);
+    letter-spacing: 0.5px;
+}
+
+a:hover {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+    </style>
+</head>
+
+<body>
+
+    <input type="email" placeholder="Enter Email Address" id="email">
+    <input type="text" placeholder="Enter Password " id="password">
+    <button id="login">login</button>
+    <a href="./signup.html">don't have an account ? </a>
+
+
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-database-compat.js"></script>
+
+    <script>
+       const firebaseConfig = {
+  apiKey: "AIzaSyDw4y1NWPvI2SY1pxgPwv7VpAd9wp8JUlk",
+  authDomain: "quiz-app-dd5f9.firebaseapp.com",
+  databaseURL: "https://quiz-app-dd5f9-default-rtdb.firebaseio.com",
+  projectId: "quiz-app-dd5f9",
+  storageBucket: "quiz-app-dd5f9.firebasestorage.app",
+  messagingSenderId: "573422885978",
+  appId: "1:573422885978:web:adf703de123a0aaf3f4c63"
+};
+
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="login.js"></script>
+
+</body>
+
+</html>
